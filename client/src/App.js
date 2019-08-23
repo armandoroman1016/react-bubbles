@@ -15,6 +15,7 @@ function App() {
           display BubblePage when you're authenticated 
         */}
       </div>
+      
     </Router>
   );
 }
