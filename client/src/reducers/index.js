@@ -2,6 +2,12 @@ import {
     LOG_IN_START, 
     LOG_IN_SUCCESS, 
     LOG_IN_ERROR,
+    GET_COLORS_START,
+    GET_COLORS_SUCCESS,
+    GET_COLORS_ERROR,
+    UPDATE_COLOR_START,
+    UPDATE_COLOR_SUCCESS,
+    UPDATE_COLOR_ERROR
 }   from '../actions'
 
 const initialState = {
@@ -9,6 +15,9 @@ const initialState = {
     error: '',
     isLoggingIn : false,
     hasToken: false,
+    gettingData: false,
+    editingColor: false,
+
 }
 
 export const reducer = (state = initialState, action ) => {
@@ -30,6 +39,40 @@ export const reducer = (state = initialState, action ) => {
                 isLoggingIn: false,
                 hasToken: false,
                 error: action.payload
+            }
+        case GET_COLORS_START:
+                return{
+                    ...state,
+                    gettingData: true,
+                    hasToken: true
+                }
+        case GET_COLORS_SUCCESS:
+            return{
+                ...state,
+                colors: action.payload,
+                gettingData: false
+            }
+        case GET_COLORS_ERROR:
+            return{
+                ...state,
+                error: action.payload,
+                gettingData: false
+            }
+        case UPDATE_COLOR_START:
+            return{
+                ...state, gettingData: true
+            }
+        case UPDATE_COLOR_SUCCESS:
+            return{
+                ...state,
+                gettingData: false,
+                colors: state.colors.map( color => {
+                    if(color.id === action.payload.id){
+                        return action.payload
+                    }else{
+                        return color
+                    }
+                })
             }
         default :
             return state 
