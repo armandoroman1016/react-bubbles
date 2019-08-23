@@ -15,7 +15,7 @@ const BubblePage = props => {
     <div>
     Hello
       <ColorList />
-      {/*<Bubbles />*/}
+      <Bubbles />
     </div>
   );
 };

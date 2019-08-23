@@ -49,3 +49,17 @@ export const updateColorChange = (id, values) => {
     }
 }
 
+export const DELETE_COLOR_START = 'DELETE_COLOR_START'
+export const DELETE_COLOR_SUCCESS = 'DELETE_COLOR_SUCCESS'
+export const DELETE_COLOR_ERROR = 'DELETE_COLOR_ERROR'
+
+
+export const deleteColorAttempt = id =>{
+    return dispatch => {
+        dispatch({type: DELETE_COLOR_START})
+        axiosWithAuth()
+            .delete(`http://localhost:5000/api/colors/${id}`)
+            .then( res => dispatch({type: DELETE_COLOR_SUCCESS, payload:id}))
+            .catch( err => console.log(err))
+    }
+} 

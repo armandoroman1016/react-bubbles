@@ -7,7 +7,10 @@ import {
     GET_COLORS_ERROR,
     UPDATE_COLOR_START,
     UPDATE_COLOR_SUCCESS,
-    UPDATE_COLOR_ERROR
+    UPDATE_COLOR_ERROR,
+    DELETE_COLOR_START,
+    DELETE_COLOR_SUCCESS,
+    DELETE_COLOR_ERROR
 }   from '../actions'
 
 const initialState = {
@@ -73,6 +76,29 @@ export const reducer = (state = initialState, action ) => {
                         return color
                     }
                 })
+            }
+        case UPDATE_COLOR_ERROR:
+            return{
+                ...state,
+                error: action.payload
+            }
+        case DELETE_COLOR_START:
+            return{
+                ...state
+            }
+        case DELETE_COLOR_SUCCESS:
+            return{
+                ...state,
+                colors: state.colors.filter( color => {
+                    if(color.id !== action.payload){
+                        return color
+                    }
+                })
+            }
+        case DELETE_COLOR_ERROR:
+            return{
+                ...state,
+                error: action.payload
             }
         default :
             return state 
