@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form , Field, withFormik } from 'formik'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { logInAttempt } from '../actions'
 
 const LoginForm = props => {
+
+    useEffect(()=> {
+        if(props.hasToken && !props.isLoggingIn){
+            props.history.push('/bubbles')
+        }
+    })
+
     return(
         <Form>
         <h2>React-Bubbles Login</h2>
@@ -32,12 +39,14 @@ const FormikLogin = withFormik({
             password: values.password
         }
         props.props.logInAttempt(dataToPost)
+
     }
 })(LoginForm)
 
 const mapStateToProps = state => {
     return {
-        ...state
+        isLoggingIn: state.isLoggingIn,
+        hasToken: state.hasToken
     }
 }
 
